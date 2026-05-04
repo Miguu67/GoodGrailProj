@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Good Grail | Price Catalog</title>
+    <link rel="stylesheet" href="header.css">
+    <style>
+        :root {
+            --primary-green: #2d6a4f;
+            --accent-navy: #1b4332;
+            --bg-soft: #f0f2f5;
+            --white: #ffffff;
+            --text-dark: #2d3436;
+            --text-muted: #636e72;
+        }
+
+        body {
+            font-family: 'Inter', 'Segoe UI', sans-serif;
+            margin: 0;
+            background-color: var(--bg-soft);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+    
+
+        .search-section {
+            background: linear-gradient(135deg, var(--accent-navy) 0%, var(--primary-green) 100%);
+            padding: 60px 8% 80px;
+            text-align: center;
+            color: white;
+        }
+
+        .search-section h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin: 0 0 20px;
+        }
+
+        .search-bar {
+            background: white;
+            padding: 8px 25px;
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            width: 100%;
+            max-width: 600px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+        }
+
+        .search-bar span {
+            font-size: 1.2rem;
+            color: var(--primary-green);
+            margin-right: 10px;
+        }
+
+        .search-bar input { 
+            border: none; 
+            width: 100%; 
+            outline: none; 
+            padding: 12px 5px; 
+            font-size: 1rem; 
+            font-family: inherit;
+            color: var(--text-dark);
+        }
+
+        .catalog-container {
+            display: flex;
+            padding: 0 8% 60px;
+            gap: 40px;
+            flex: 1; 
+            margin-top: -35px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .filters { 
+            width: 280px; 
+            background: white; 
+            padding: 30px; 
+            border-radius: 20px; 
+            height: fit-content; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            box-sizing: border-box;
+        }
+
+        .filter-group { 
+            margin-bottom: 25px; 
+        }
+
+        .filter-group:last-child {
+            margin-bottom: 0;
+        }
+
+        .filter-group label { 
+            display: block; 
+            font-size: 0.75rem; 
+            font-weight: 800; 
+            color: #b2bec3; 
+            margin-bottom: 12px; 
+            text-transform: uppercase; 
+            letter-spacing: 1.2px; 
+        }
+
+        .filter-dropdown { 
+            width: 100%; 
+            padding: 12px; 
+            border: 1px solid #e0e0e0; 
+            border-radius: 12px; 
+            background-color: #f8f9fa; 
+            cursor: pointer; 
+            font-weight: 600; 
+            color: var(--text-dark);
+            outline: none;
+            font-family: inherit;
+            transition: border-color 0.2s ease;
+        }
+
+        .filter-dropdown:focus {
+            border-color: var(--primary-green);
+        }
+
+        .product-grid { 
+            flex: 1; 
+            display: grid; 
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
+            gap: 25px; 
+        }
+
+        .product-card {
+            background: white;
+            border-radius: 24px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 1px solid rgba(0,0,0,0.05);
+            cursor: pointer; 
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover { 
+            transform: translateY(-8px); 
+            box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
+            border-color: rgba(45, 106, 79, 0.2);
+        }
+        
+        .product-img { 
+            background: #f1f2f6; 
+            height: 180px; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 4rem; 
+            user-select: none;
+        }
+
+        .product-info { 
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            flex: 1;
+        }
+        
+        .product-info h3 { 
+            margin: 0 0 8px; 
+            font-size: 1.25rem; 
+            color: var(--text-dark); 
+            font-weight: 700;
+            line-height: 1.3;
+        }
+
+        .product-info .price { 
+            font-size: 1.6rem; 
+            font-weight: 800; 
+            color: var(--primary-green); 
+            margin: 10px 0 15px; 
+        }
+
+        .vouch-stats { 
+            font-size: 0.85rem; 
+            color: #7f8c8d; 
+            border-top: 1px solid #f1f2f6; 
+            padding-top: 15px; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center;
+            margin-top: auto;
+        }
+
+        footer { 
+            background: var(--accent-navy); 
+            color: rgba(255,255,255,0.7); 
+            padding: 30px 8%; 
+            display: flex; 
+            justify-content: space-between; 
+            font-size: 0.9rem;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .catalog-container { flex-direction: column; }
+            .filters { width: 100%; margin-top: -15px; }
+            footer { flex-direction: column; gap: 15px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <a href="index.html" class="logo">GOOD GRAIL</a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="contactpage.html" class="btn-contact">Contact Us</a>
+        </nav>
+    </header>
+
+    <section class="search-section">
+        <h1>Market Catalog</h1>
+        <div class="search-bar">
+            <span>🔍</span>
+            <input type="text" id="catalog-search" placeholder="Filter by product name or category..." onkeyup="filterProducts()">
+        </div>
+    </section>
+
+    <main class="catalog-container">
+        <aside class="filters">
+            <div class="filter-group">
+                <label>City</label>
+                <select class="filter-dropdown" id="filter-city" onchange="filterProducts()">
+                    <option value="">All Cities</option>
+                    <option value="Mandaluyong">Mandaluyong</option>
+                    <option value="Pasig">Pasig</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label>Category</label>
+                <select class="filter-dropdown" id="filter-category" onchange="filterProducts()">
+                    <option value="">All Categories</option>
+                    <option value="grains">Grains/Rice</option>
+                    <option value="dairy">Dairy & Eggs</option>
+                    <option value="oil">Cooking Oils</option>
+                    <option value="sweets">Sugar & Sweeteners</option>
+                </select>
+            </div>
+        </aside>
+
+        <section class="product-grid" id="product-grid">
+            <div class="product-card" onclick="location.href='productpage.html?product=rice&name=Well-milled+Rice&price=52.50&city=Mandaluyong&img=🌾&upvotes=124&downvotes=3'" data-city="Mandaluyong" data-category="grains" data-name="well-milled rice grains">
+                <div class="product-img">🌾</div>
+                <div class="product-info">
+                    <h3>Well-milled Rice (1kg)</h3>
+                    <p class="price">₱52.50</p>
+                    <div class="vouch-stats">
+                        <div><b>124</b> Upvotes</div>
+                        <div>👍 👎</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="product-card" onclick="location.href='productpage.html?product=eggs&name=Fresh+Farm+Eggs&price=85.00&city=Pasig&img=🥚&upvotes=96&downvotes=5'" data-city="Pasig" data-category="dairy" data-name="fresh farm eggs dairy dozen">
+                <div class="product-img">🥚</div>
+                <div class="product-info">
+                    <h3>Fresh Farm Eggs (Dozen)</h3>
+                    <p class="price">₱85.00</p>
+                    <div class="vouch-stats">
+                        <div><b>96</b> Upvotes</div>
+                        <div>👍 👎</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="location.href='productpage.html?product=oil&name=Palm+Cooking+Oil&price=78.00&city=Mandaluyong&img=🫙&upvotes=42&downvotes=12'" data-city="Mandaluyong" data-category="oil" data-name="palm cooking oil">
+                <div class="product-img">🫙</div>
+                <div class="product-info">
+                    <h3>Palm Cooking Oil (1L)</h3>
+                    <p class="price">₱78.00</p>
+                    <div class="vouch-stats">
+                        <div><b>42</b> Upvotes</div>
+                        <div>👍 👎</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="product-card" onclick="location.href='productpage.html?product=sugar&name=Refined+Sugar&price=86.00&city=Pasig&img=🧂&upvotes=68&downvotes=2'" data-city="Pasig" data-category="sweets" data-name="refined sugar sweeteners">
+                <div class="product-img">🧂</div>
+                <div class="product-info">
+                    <h3>Refined Sugar (1kg)</h3>
+                    <p class="price">₱86.00</p>
+                    <div class="vouch-stats">
+                        <div><b>68</b> Upvotes</div>
+                        <div>👍 👎</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div>SDG 12: Responsible Consumption</div>
+        <div>WEB SYSTEMS | Good Grail</div>
+    </footer>
+
+    <script>
+        function filterProducts() {
+            const searchQuery = document.getElementById('catalog-search').value.toLowerCase().trim();
+            const selectedCity = document.getElementById('filter-city').value;
+            const selectedCategory = document.getElementById('filter-category').value;
+            const productCards = document.querySelectorAll('.product-card');
+
+            productCards.forEach(card => {
+                const productName = card.getAttribute('data-name').toLowerCase();
+                const productCity = card.getAttribute('data-city');
+                const productCategory = card.getAttribute('data-category');
+
+                const matchesSearch = productName.includes(searchQuery);
+                const matchesCity = selectedCity === "" || productCity === selectedCity;
+                const matchesCategory = selectedCategory === "" || productCategory === selectedCategory;
+
+                if (matchesSearch && matchesCity && matchesCategory) {
+                    card.style.display = "flex";
+                } else {
+                    card.style.display = "none";
+                }
+            });
+        }
+
+        window.onload = function() {
+            const params = new URLSearchParams(window.location.search);
+            const searchParam = params.get('search');
+            if (searchParam) {
+                document.getElementById('catalog-search').value = searchParam;
+                filterProducts();
+            }
+        };
+    </script>
+</body>
+</html>
