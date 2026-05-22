@@ -13,6 +13,10 @@
             --text-muted: #636e72;
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body {
             font-family: 'Inter', 'Segoe UI', sans-serif;
             margin: 0;
@@ -23,184 +27,136 @@
             min-height: 100vh;
         }
 
-    
-
-        .search-section {
-            background: linear-gradient(135deg, var(--accent-navy) 0%, var(--primary-green) 100%);
-            padding: 60px 8% 80px;
-            text-align: center;
-            color: white;
-        }
-
-        .search-section h1 {
-            font-size: 2.5rem;
-            font-weight: 800;
-            margin: 0 0 20px;
-        }
-
-        .search-bar {
-            background: white;
-            padding: 8px 25px;
-            border-radius: 16px;
-            display: inline-flex;
-            align-items: center;
-            width: 100%;
-            max-width: 600px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-        }
-
-        .search-bar span {
-            font-size: 1.2rem;
-            color: var(--primary-green);
-            margin-right: 10px;
-        }
-
-        .search-bar input { 
-            border: none; 
-            width: 100%; 
-            outline: none; 
-            padding: 12px 5px; 
-            font-size: 1rem; 
-            font-family: inherit;
-            color: var(--text-dark);
-        }
-
         .catalog-container {
-            display: flex;
-            padding: 0 8% 60px;
-            gap: 40px;
-            flex: 1; 
-            margin-top: -35px;
-            position: relative;
-            z-index: 10;
+            flex: 1;
+            padding: 40px 8%;
         }
 
-        .filters { 
-            width: 280px; 
-            background: white; 
-            padding: 30px; 
-            border-radius: 20px; 
-            height: fit-content; 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
-            box-sizing: border-box;
+        .catalog-title {
+            font-size: 2.2rem;
+            color: var(--accent-navy);
+            font-weight: 800;
+            margin: 0 0 10px 0;
         }
 
-        .filter-group { 
-            margin-bottom: 25px; 
+        .catalog-subtitle {
+            color: var(--text-muted);
+            margin: 0 0 30px 0;
+            font-size: 1.1rem;
         }
 
-        .filter-group:last-child {
-            margin-bottom: 0;
+        .filter-section {
+            background: var(--white);
+            padding: 25px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.02);
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+            align-items: center;
         }
 
-        .filter-group label { 
-            display: block; 
-            font-size: 0.75rem; 
-            font-weight: 800; 
-            color: #b2bec3; 
-            margin-bottom: 12px; 
-            text-transform: uppercase; 
-            letter-spacing: 1.2px; 
-        }
-
-        .filter-dropdown { 
-            width: 100%; 
-            padding: 12px; 
-            border: 1px solid #e0e0e0; 
-            border-radius: 12px; 
-            background-color: #f8f9fa; 
-            cursor: pointer; 
-            font-weight: 600; 
-            color: var(--text-dark);
-            outline: none;
+        .search-wrapper input, .filter-wrapper select {
+            width: 100%;
+            padding: 14px 20px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-size: 1rem;
             font-family: inherit;
-            transition: border-color 0.2s ease;
+            outline: none;
+            background-color: #f8fafc;
+            transition: all 0.2s;
         }
 
-        .filter-dropdown:focus {
+        .search-wrapper input:focus, .filter-wrapper select:focus {
             border-color: var(--primary-green);
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(45, 106, 79, 0.1);
         }
 
-        .product-grid { 
-            flex: 1; 
-            display: grid; 
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-            gap: 25px; 
+        .filter-wrapper select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%23636e72'><path d='M0 0l5 6 5-6z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
+            padding-right: 40px;
+            cursor: pointer;
+        }
+
+        .catalog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 30px;
         }
 
         .product-card {
-            background: white;
-            border-radius: 24px;
-            overflow: hidden;
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 1px solid rgba(0,0,0,0.05);
-            cursor: pointer; 
+            background: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.02);
             display: flex;
-            flex-direction: column;
-        }
-
-        .product-card:hover { 
-            transform: translateY(-8px); 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.08); 
-            border-color: rgba(45, 106, 79, 0.2);
-        }
-        
-        .product-img { 
-            background: #f1f2f6; 
-            height: 180px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 4rem; 
-            user-select: none;
-        }
-
-        .product-info { 
-            padding: 25px;
-            display: flex;
-            flex-direction: column;
-            flex: 1;
-        }
-        
-        .product-info h3 { 
-            margin: 0 0 8px; 
-            font-size: 1.25rem; 
-            color: var(--text-dark); 
-            font-weight: 700;
-            line-height: 1.3;
-        }
-
-        .product-info .price { 
-            font-size: 1.6rem; 
-            font-weight: 800; 
-            color: var(--primary-green); 
-            margin: 10px 0 15px; 
-        }
-
-        .vouch-stats { 
-            font-size: 0.85rem; 
-            color: #7f8c8d; 
-            border-top: 1px solid #f1f2f6; 
-            padding-top: 15px; 
-            display: flex; 
-            justify-content: space-between; 
             align-items: center;
-            margin-top: auto;
+            gap: 25px;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            border: 1px solid transparent;
         }
 
-        footer { 
-            background: var(--accent-navy); 
-            color: rgba(255,255,255,0.7); 
-            padding: 30px 8%; 
-            display: flex; 
-            justify-content: space-between; 
+        .product-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.06);
+            border-color: rgba(45, 106, 79, 0.1);
+        }
+
+        .product-icon {
+            font-size: 3rem;
+            background: #f1f5f9;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 16px;
+            flex-shrink: 0;
+        }
+
+        .product-details {
+            flex-grow: 1;
+        }
+
+        .product-details h3 {
+            margin: 0 0 5px 0;
+            font-size: 1.25rem;
+            color: var(--accent-navy);
+            font-weight: 800;
+        }
+
+        .product-price {
+            font-size: 1.4rem;
+            font-weight: 800;
+            color: var(--primary-green);
+            margin: 5px 0;
+        }
+
+        .product-location {
             font-size: 0.9rem;
-            align-items: center;
+            color: var(--text-muted);
+            font-weight: 500;
         }
 
-        @media (max-width: 768px) {
-            .catalog-container { flex-direction: column; }
-            .filters { width: 100%; margin-top: -15px; }
+        footer {
+            background: var(--accent-navy);
+            color: rgba(255,255,255,0.7);
+            padding: 30px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        @media(max-width: 900px) {
+            .filter-section { grid-template-columns: 1fr; gap: 15px; }
             footer { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
@@ -208,131 +164,118 @@
 <body>
 
     <header>
-        <a href="index.html" class="logo">GOOD GRAIL</a>
-        <nav class="main-nav">
-            <a href="index.html">Home</a>
-            <a href="contactpage.html" class="btn-contact">Contact Us</a>
-        </nav>
+    <a href="index.html" class="logo">GOOD GRAIL</a>
+    <nav class="main-nav">
+        <a href="index.html">Home</a>
+        <a href="pricecatalog.html" style="color: var(--primary-green);">Price Catalog</a>
+        <a href="contactpage.html" class="btn-contact">Contact Us</a>
+    </nav>
     </header>
 
-    <section class="search-section">
-        <h1>Market Catalog</h1>
-        <div class="search-bar">
-            <span>🔍</span>
-            <input type="text" id="catalog-search" placeholder="Filter by product name or category..." onkeyup="filterProducts()">
-        </div>
-    </section>
-
     <main class="catalog-container">
-        <aside class="filters">
-            <div class="filter-group">
-                <label>City</label>
-                <select class="filter-dropdown" id="filter-city" onchange="filterProducts()">
-                    <option value="">All Cities</option>
-                    <option value="Mandaluyong">Mandaluyong</option>
-                    <option value="Pasig">Pasig</option>
+        <h1 class="catalog-title">Price Transparency Index</h1>
+        <p class="catalog-subtitle">Compare baseline prices across different dynamic local branches to make informed decisions.</p>
+
+        <section class="filter-section">
+            <div class="search-wrapper">
+                <input type="text" id="catalog-search" placeholder="Type commodity name to filter..." oninput="filterProducts()">
+            </div>
+            <div class="filter-wrapper">
+                <select id="filter-city" onchange="filterProducts()">
+                    <option value="">All Metro Cities</option>
+                    <option value="Manila">Manila</option>
+                    <option value="Quezon">Quezon City</option>
+                    <option value="Pasig">Pasig City</option>
                 </select>
             </div>
-            <div class="filter-group">
-                <label>Category</label>
-                <select class="filter-dropdown" id="filter-category" onchange="filterProducts()">
+            <div class="filter-wrapper">
+                <select id="filter-category" onchange="filterProducts()">
                     <option value="">All Categories</option>
-                    <option value="grains">Grains/Rice</option>
-                    <option value="dairy">Dairy & Eggs</option>
-                    <option value="oil">Cooking Oils</option>
-                    <option value="sweets">Sugar & Sweeteners</option>
+                    <option value="rice">Rice & Grains</option>
+                    <option value="eggs">Poultry & Eggs</option>
+                    <option value="meat">Fresh Meat</option>
+                    <option value="oil">Oils & Condiments</option>
+                    <option value="vegetables">Produce & Vegetables</option>
+                    <option value="essentials">Baking & Sweets</option>
                 </select>
-            </div>
-        </aside>
-
-        <section class="product-grid" id="product-grid">
-            <div class="product-card" onclick="location.href='productpage.html?product=rice&name=Well-milled+Rice&price=52.50&city=Mandaluyong&img=🌾&upvotes=124&downvotes=3'" data-city="Mandaluyong" data-category="grains" data-name="well-milled rice grains">
-                <div class="product-img">🌾</div>
-                <div class="product-info">
-                    <h3>Well-milled Rice (1kg)</h3>
-                    <p class="price">₱52.50</p>
-                    <div class="vouch-stats">
-                        <div><b>124</b> Upvotes</div>
-                        <div>👍 👎</div>
-                    </div>
-                </div>
-            </div>
-            
-            <div class="product-card" onclick="location.href='productpage.html?product=eggs&name=Fresh+Farm+Eggs&price=85.00&city=Pasig&img=🥚&upvotes=96&downvotes=5'" data-city="Pasig" data-category="dairy" data-name="fresh farm eggs dairy dozen">
-                <div class="product-img">🥚</div>
-                <div class="product-info">
-                    <h3>Fresh Farm Eggs (Dozen)</h3>
-                    <p class="price">₱85.00</p>
-                    <div class="vouch-stats">
-                        <div><b>96</b> Upvotes</div>
-                        <div>👍 👎</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" onclick="location.href='productpage.html?product=oil&name=Palm+Cooking+Oil&price=78.00&city=Mandaluyong&img=🫙&upvotes=42&downvotes=12'" data-city="Mandaluyong" data-category="oil" data-name="palm cooking oil">
-                <div class="product-img">🫙</div>
-                <div class="product-info">
-                    <h3>Palm Cooking Oil (1L)</h3>
-                    <p class="price">₱78.00</p>
-                    <div class="vouch-stats">
-                        <div><b>42</b> Upvotes</div>
-                        <div>👍 👎</div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="product-card" onclick="location.href='productpage.html?product=sugar&name=Refined+Sugar&price=86.00&city=Pasig&img=🧂&upvotes=68&downvotes=2'" data-city="Pasig" data-category="sweets" data-name="refined sugar sweeteners">
-                <div class="product-img">🧂</div>
-                <div class="product-info">
-                    <h3>Refined Sugar (1kg)</h3>
-                    <p class="price">₱86.00</p>
-                    <div class="vouch-stats">
-                        <div><b>68</b> Upvotes</div>
-                        <div>👍 👎</div>
-                    </div>
-                </div>
             </div>
         </section>
+
+        <section class="catalog-grid" id="catalog-grid-render"></section>
     </main>
 
     <footer>
-        <div>SDG 12: Responsible Consumption</div>
-        <div>WEB SYSTEMS | Good Grail</div>
+        <div>© 2026 GOOD GRAIL | WEB SYSTEMS Project</div>
+        <div style="font-weight: bold; color: white;">SDG 12: Responsible Consumption</div>
     </footer>
 
-    <script>
-        function filterProducts() {
-            const searchQuery = document.getElementById('catalog-search').value.toLowerCase().trim();
-            const selectedCity = document.getElementById('filter-city').value;
-            const selectedCategory = document.getElementById('filter-category').value;
-            const productCards = document.querySelectorAll('.product-card');
+<script>
+    const SHEETY_API_URL = "https://api.sheety.co/714f9aedd46168f80737977f95b48854/goodGrailData/products";
+    let productsRegistry = [];
 
-            productCards.forEach(card => {
-                const productName = card.getAttribute('data-name').toLowerCase();
-                const productCity = card.getAttribute('data-city');
-                const productCategory = card.getAttribute('data-category');
-
-                const matchesSearch = productName.includes(searchQuery);
-                const matchesCity = selectedCity === "" || productCity === selectedCity;
-                const matchesCategory = selectedCategory === "" || productCategory === selectedCategory;
-
-                if (matchesSearch && matchesCity && matchesCategory) {
-                    card.style.display = "flex";
-                } else {
-                    card.style.display = "none";
-                }
-            });
+    async function loadCatalogDatabase() {
+        try {
+            const response = await fetch(SHEETY_API_URL);
+            const data = await response.json();
+            productsRegistry = data.products;
+            buildCatalog();
+        } catch (error) {
+            console.error("Catalog Sync Failed:", error);
         }
+    }
 
-        window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
-            const searchParam = params.get('search');
-            if (searchParam) {
-                document.getElementById('catalog-search').value = searchParam;
-                filterProducts();
-            }
-        };
-    </script>
+    function buildCatalog() {
+        const container = document.getElementById('catalog-grid-render');
+        if(!container) return;
+        container.innerHTML = "";
+
+        productsRegistry.forEach(prod => {
+            container.innerHTML += `
+                <div class="product-card" data-name="${prod.name || ''}" data-city="${prod.city || ''}" data-category="${prod.category || ''}" onclick="navigateToProduct('${prod.id || ''}')">
+                    <div class="product-icon">${prod.img || '🌾'}</div>
+                    <div class="product-details">
+                        <h3>${prod.name || 'Unknown Item'}</h3>
+                        <div class="product-location">📍 SM ${prod.city || 'Manila'}</div>
+                        <div class="product-price">₱${prod.price || 0}<span style="font-size:0.9rem; color:var(--text-muted); font-weight:500;">/${prod.unit || 'kg'}</span></div>
+                    </div>
+                </div>
+            `;
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const searchParam = params.get('search');
+        if (searchParam) {
+            document.getElementById('catalog-search').value = searchParam;
+            filterProducts();
+        }
+    }
+
+    function filterProducts() {
+        const query = document.getElementById('catalog-search').value.toLowerCase().trim();
+        const city = document.getElementById('filter-city').value.toLowerCase();
+        const cat = document.getElementById('filter-category').value.toLowerCase();
+        const cards = document.querySelectorAll('.product-card');
+
+        cards.forEach(card => {
+            const name = (card.getAttribute('data-name') || '').toLowerCase();
+            const cardCity = (card.getAttribute('data-city') || '').toLowerCase();
+            const cardCat = (card.getAttribute('data-category') || '').toLowerCase();
+
+            const matchesSearch = name.includes(query);
+            const matchesCity = city === "" || cardCity.includes(city);
+            const matchesCategory = cat === "" || cardCat === cat;
+
+            card.style.display = (matchesSearch && matchesCity && matchesCategory) ? "flex" : "none";
+        });
+    }
+
+    function navigateToProduct(id) {
+        const prod = productsRegistry.find(p => p.id === id);
+        if (!prod) return;
+        window.location.href = `productpage.html?id=${prod.id}&name=${encodeURIComponent(prod.name)}&price=${prod.price}&city=${encodeURIComponent(prod.city)}&img=${encodeURIComponent(prod.img)}`;
+    }
+
+    window.onload = loadCatalogDatabase;
+</script>
 </body>
 </html>
