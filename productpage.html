@@ -48,7 +48,34 @@
             margin-top: -60px;
             flex: 1;
             display: flex;
-            justify-content: center;
+            flex-direction: column; 
+            align-items: center;
+        }
+
+        .back-navigation {
+            max-width: 1000px;
+            width: 100%;
+            margin-bottom: 15px;
+            display: flex;
+            justify-content: flex-start;
+        }
+
+        .btn-back-link {
+            color: var(--white);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            opacity: 0.85;
+            transition: opacity 0.2s, transform 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            cursor: pointer;
+        }
+
+        .btn-back-link:hover {
+            opacity: 1;
+            transform: translateX(-2px);
         }
 
         .product-card {
@@ -90,6 +117,7 @@
             color: var(--accent-navy);
             margin: 0 0 10px 0;
             font-weight: 800;
+            line-height: 1.2;
         }
 
         .location-badge {
@@ -107,6 +135,7 @@
             margin-bottom: 30px;
             border-bottom: 2px dashed #e2e8f0;
             padding-bottom: 15px;
+            letter-spacing: -1px;
         }
 
         .sdg-box {
@@ -184,6 +213,7 @@
             .product-card { grid-template-columns: 1fr; gap: 30px; padding: 30px; }
             .hero h1 { font-size: 2.2rem; }
             footer { flex-direction: column; gap: 15px; text-align: center; }
+            .back-navigation { justify-content: center; margin-bottom: 5px; }
         }
     </style>
 </head>
@@ -203,6 +233,12 @@
     </section>
 
     <main class="dashboard-container">
+        <div class="back-navigation">
+            <a href="pricecatalog.html" class="btn-back-link" onclick="if(document.referrer && window.history.length > 1) { event.preventDefault(); history.back(); }">
+                ← Return to Catalog Options
+            </a>
+        </div>
+
         <div class="product-card">
             <section class="product-visual">
                 <div class="product-emoji" id="prod-emoji">🔍</div>
@@ -252,12 +288,15 @@
             baseUpvotes = parseInt(urlParams.get('upvotes') || "14");
             baseDownvotes = parseInt(urlParams.get('downvotes') || "2");
 
-            let unit = "kg";
-            if (name.toLowerCase().includes("eggs")) unit = "dozen";
-            if (name.toLowerCase().includes("oil")) unit = "bottle";
+            let unit = urlParams.get('unit');
+            if (!unit) {
+                unit = "kg";
+                if (name.toLowerCase().includes("eggs")) unit = "dozen";
+                if (name.toLowerCase().includes("oil")) unit = "bottle";
+            }
 
             document.getElementById('prod-name').innerText = name;
-            document.getElementById('prod-price').innerText = `₱${price.toFixed(2)}/${unit}`;
+            document.getElementById('prod-price').innerHTML = `₱${price.toFixed(2)}<span style="font-size: 1.4rem; color: var(--text-muted); font-weight: 500;"> / ${unit}</span>`;
             document.getElementById('prod-location').innerText = `📍 SM Supermarket, SM ${city}`;
             document.getElementById('prod-emoji').innerText = img;
 
