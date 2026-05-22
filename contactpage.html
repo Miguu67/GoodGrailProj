@@ -6,6 +6,7 @@
     <style>
         :root {
             --primary-green: #2d6a4f;
+            --accent-green: #40916c;
             --accent-navy: #1b4332;
             --bg-soft: #f0f2f5;
             --white: #ffffff;
@@ -13,42 +14,51 @@
             --text-muted: #636e72;
         }
 
+        *, *::before, *::after {
+            box-sizing: border-box;
+        }
+
         body { 
-            font-family: 'Inter', sans-serif; 
+            font-family: 'Inter', 'Segoe UI', sans-serif; 
             margin: 0; 
-            background-color: var(--bg-soft);
-            color: var(--text-dark);
+            background-color: var(--bg-soft); 
+            color: var(--text-dark); 
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .hero { 
             background: linear-gradient(135deg, var(--accent-navy) 0%, var(--primary-green) 100%); 
             padding: 80px 8% 120px; 
             text-align: center; 
-            color: white; 
+            color: var(--white); 
         }
 
         .hero h1 { 
             font-size: 3rem; 
             margin: 0; 
             font-weight: 800;
+            letter-spacing: -1px;
         }
 
         .hero p {
             font-size: 1.1rem;
             opacity: 0.9;
-            margin-top: 10px;
+            margin: 10px 0 0 0;
         }
         
         .dashboard-container {
             padding: 0 8% 60px; 
             margin-top: -60px; 
+            flex: 1;
             display: flex; 
             justify-content: center; 
         }
 
         .contact-card { 
-            background: white; 
+            background: var(--white); 
             padding: 50px; 
             border-radius: 30px; 
             box-shadow: 0 20px 40px rgba(0,0,0,0.05); 
@@ -57,15 +67,15 @@
             gap: 60px; 
             max-width: 1100px; 
             width: 100%; 
-            box-sizing: border-box;
         }
 
         .contact-info h2 { 
-            font-size: 2.5rem; 
+            font-size: 2.3rem; 
             color: var(--accent-navy); 
             letter-spacing: -1px; 
-            margin-top: 0;
+            margin: 0 0 10px 0;
             line-height: 1.1;
+            font-weight: 800;
         }
 
         .info-item { 
@@ -77,6 +87,7 @@
             border-radius: 15px; 
             margin-bottom: 15px;
             transition: transform 0.2s ease;
+            border: 1px solid #eef2f5;
         }
 
         .info-item:hover {
@@ -84,52 +95,73 @@
         }
 
         .info-item span { 
-            font-size: 1.5rem; 
+            font-size: 1.8rem; 
         }
 
         .feedback-form { 
             background: var(--primary-green); 
-            color: white; 
+            color: var(--white); 
             padding: 40px; 
             border-radius: 25px; 
             box-shadow: 0 10px 30px rgba(45, 106, 79, 0.2);
         }
 
+        .feedback-form select,
         .feedback-form input, 
         .feedback-form textarea { 
             width: 100%; 
             padding: 15px; 
             margin-bottom: 15px; 
-            border: none; 
+            border: 1px solid transparent; 
             border-radius: 12px; 
             font-family: inherit; 
             font-size: 1rem; 
-            box-sizing: border-box; 
+            outline: none;
+            background-color: var(--white);
+            color: var(--text-dark);
+        }
+
+        .feedback-form select {
+            cursor: pointer;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='10' height='6' fill='%232d3436'><path d='M0 0l5 6 5-6z'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 15px center;
         }
 
         .feedback-form input:focus, 
-        .feedback-form textarea:focus {
-            outline: 3px solid rgba(255,255,255,0.3);
+        .feedback-form textarea:focus,
+        .feedback-form select:focus {
+            border-color: var(--accent-navy);
+            box-shadow: 0 0 0 4px rgba(27, 67, 50, 0.2);
         }
 
         .btn-submit { 
-            background: white; 
+            background: var(--white); 
             color: var(--primary-green); 
             width: 100%; 
-            padding: 15px; 
+            padding: 16px; 
             border: none; 
             border-radius: 12px; 
             cursor: pointer; 
             font-weight: 800; 
-            transition: 0.3s;
+            transition: all 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
         }
 
         .btn-submit:hover { 
-            transform: scale(1.02); 
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1); 
+            transform: scale(1.01); 
+            box-shadow: 0 5px 15px rgba(0,0,0,0.15); 
             background-color: #f8f9fa;
+        }
+
+        .btn-submit:disabled {
+            background-color: #b2bec3;
+            color: #636e72;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
         }
 
         footer { 
@@ -162,31 +194,37 @@
 
     <section class="hero">
         <h1>Let's Connect</h1>
-        <p>Your feedback helps us help more Filipinos.</p>
+        <p>Your insights help establish transparent consumer metrics across the Philippines.</p>
     </section>
 
     <main class="dashboard-container">
         <div class="contact-card">
             <section class="contact-info">
                 <h2>Contact Our Team</h2>
-                <p style="color: var(--text-muted); margin-bottom: 30px;">Report price issues or suggest new features to help our community shop responsibly.</p>
+                <p style="color: var(--text-muted); margin-bottom: 30px;">Report artificial supply constraints, flag localized price gouging anomalies, or suggest feature updates.</p>
                 <div class="info-item">
                     <span>📧</span>
-                    <div><b>Email Us</b><br>team@goodgrail.nu</div>
+                    <div><b>Email Registry</b><br>team@goodgrail.nu</div>
                 </div>
                 <div class="info-item">
                     <span>📍</span>
-                    <div><b>Location</b><br>Manila, Sampaloc PH</div>
+                    <div><b>HQ Operations</b><br>Manila, Sampaloc PH</div>
                 </div>
             </section>
 
             <section class="feedback-form">
-                <h3 style="margin-top: 0; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; opacity: 0.9;">Send Feedback</h3>
-                <form id="contactForm" onsubmit="event.preventDefault(); alert('Message sent! Thank you for your feedback.');">
-                    <input type="text" placeholder="Your Name" required>
-                    <input type="email" placeholder="Your Email" required>
-                    <textarea placeholder="How can we improve?" rows="5" required></textarea>
-                    <button type="submit" class="btn-submit">SEND MESSAGE</button>
+                <h3 style="margin-top: 0; text-transform: uppercase; font-size: 0.8rem; letter-spacing: 1px; opacity: 0.9; margin-bottom: 15px;">Civic Submission Portal</h3>
+                <form id="contactForm" onsubmit="processFormSubmission(event)">
+                    <select id="form-type" required>
+                        <option value="" disabled selected>Select Inquiry Classification</option>
+                        <option value="gouging">Report Local Price Gouging / Discrepancy</option>
+                        <option value="feature">Suggest Platform Feature / UI Update</option>
+                        <option value="general">General Team Inquiry</option>
+                    </select>
+                    <input type="text" id="form-name" placeholder="Your Name" required>
+                    <input type="email" id="form-email" placeholder="Your Email Address" required>
+                    <textarea id="form-message" placeholder="Provide full details regarding the brand, store branch location, and exact pricing metrics seen..." rows="4" required></textarea>
+                    <button type="submit" id="submit-btn" class="btn-submit">Submit Form</button>
                 </form>
             </section>
         </div>
@@ -196,5 +234,60 @@
         <div>© 2026 GOOD GRAIL | WEB SYSTEMS Project</div>
         <div style="font-weight: bold; color: white;">SDG 12: Responsible Consumption</div>
     </footer>
+
+    <script>
+        const SHEETY_MESSAGES_URL = "https://api.sheety.co/714f9aedd46168f80737977f95b48854/goodGrailData/messages";
+
+        async function processFormSubmission(e) {
+            e.preventDefault();
+            
+            const submitBtn = document.getElementById('submit-btn');
+            const type = document.getElementById('form-type').value;
+            const name = document.getElementById('form-name').value;
+            const email = document.getElementById('form-email').value;
+            const message = document.getElementById('form-message').value;
+
+            submitBtn.disabled = true;
+            submitBtn.innerText = "Sending...";
+
+            const payload = {
+                message: {
+                    type: type,
+                    name: name,
+                    email: email,
+                    message: message
+                }
+            };
+
+            try {
+                const response = await fetch(SHEETY_MESSAGES_URL, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    let feedbackAlert = `Thank you, ${name}! `;
+                    if (type === 'gouging') {
+                        feedbackAlert += 'Your price gouging report has been compiled into our analytics engine. We will review the branch data promptly.';
+                    } else {
+                        feedbackAlert += 'Your message has been received. Our engineering team will review your comments.';
+                    }
+                    alert(feedbackAlert);
+                    document.getElementById('contactForm').reset();
+                } else {
+                    alert("Submission failed. Please check if your sheet configuration supports POST operations.");
+                }
+            } catch (error) {
+                console.error("Submission Error:", error);
+                alert("Network error. Unable to connect to submission registry.");
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerText = "Submit Form";
+            }
+        }
+    </script>
 </body>
 </html>
