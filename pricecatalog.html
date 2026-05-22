@@ -164,12 +164,12 @@
 <body>
 
     <header>
-    <a href="index.html" class="logo">GOOD GRAIL</a>
-    <nav class="main-nav">
-        <a href="index.html">Home</a>
-        <a href="pricecatalog.html" style="color: var(--primary-green);">Price Catalog</a>
-        <a href="contactpage.html" class="btn-contact">Contact Us</a>
-    </nav>
+        <a href="index.html" class="logo">GOOD GRAIL</a>
+        <nav class="main-nav">
+            <a href="index.html">Home</a>
+            <a href="pricecatalog.html" style="color: var(--primary-green);">Price Catalog</a>
+            <a href="contactpage.html" class="btn-contact">Contact Us</a>
+        </nav>
     </header>
 
     <main class="catalog-container">
@@ -230,8 +230,9 @@
         container.innerHTML = "";
 
         productsRegistry.forEach(prod => {
+           
             container.innerHTML += `
-                <div class="product-card" data-name="${prod.name || ''}" data-city="${prod.city || ''}" data-category="${prod.category || ''}" onclick="navigateToProduct('${prod.id || ''}')">
+                <div class="product-card" data-name="${prod.name || ''}" data-city="${prod.city || ''}" data-category="${prod.category || ''}" onclick="navigateToProduct(\`${prod.id || ''}\`)">
                     <div class="product-icon">${prod.img || '🌾'}</div>
                     <div class="product-details">
                         <h3>${prod.name || 'Unknown Item'}</h3>
@@ -270,9 +271,10 @@
     }
 
     function navigateToProduct(id) {
-        const prod = productsRegistry.find(p => p.id === id);
+        const prod = productsRegistry.find(p => String(p.id) === String(id));
         if (!prod) return;
-        window.location.href = `productpage.html?id=${prod.id}&name=${encodeURIComponent(prod.name)}&price=${prod.price}&city=${encodeURIComponent(prod.city)}&img=${encodeURIComponent(prod.img)}`;
+        
+        window.location.href = `productpage.html?id=${prod.id}&name=${encodeURIComponent(prod.name)}&price=${prod.price}&unit=${encodeURIComponent(prod.unit || 'kg')}&city=${encodeURIComponent(prod.city)}&img=${encodeURIComponent(prod.img)}`;
     }
 
     window.onload = loadCatalogDatabase;
