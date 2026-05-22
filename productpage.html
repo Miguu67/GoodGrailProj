@@ -6,11 +6,16 @@
     <style>
         :root {
             --primary-green: #2d6a4f;
+            --accent-green: #40916c;
             --accent-navy: #1b4332;
             --bg-soft: #f0f2f5;
             --white: #ffffff;
             --text-dark: #2d3436;
             --text-muted: #636e72;
+        }
+
+        *, *::before, *::after {
+            box-sizing: border-box;
         }
 
         body { 
@@ -19,275 +24,286 @@
             background-color: var(--bg-soft); 
             color: var(--text-dark); 
             line-height: 1.6;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
         }
 
         .hero { 
             background: linear-gradient(135deg, var(--accent-navy) 0%, var(--primary-green) 100%); 
-            padding: 60px 8% 100px; 
+            padding: 80px 8% 140px; 
             text-align: center; 
-            color: white;
+            color: var(--white); 
         }
 
-        .back-link { 
-            color: rgba(255,255,255,0.8); 
-            text-decoration: none; 
-            font-size: 0.95rem; 
-            margin-bottom: 15px; 
-            display: inline-block; 
-            font-weight: 600; 
-            transition: color 0.2s ease;
-        }
-
-        .back-link:hover {
-            color: white;
-        }
-
-        .hero h1 {
-            margin: 0;
-            font-size: 2.4rem;
-            font-weight: 800;
-        }
-
-        .product-container { 
-            max-width: 1050px; 
-            margin: -60px auto 60px; 
-            padding: 0 5%; 
-            box-sizing: border-box;
-        }
-
-        .product-card { 
-            background: white; 
-            padding: 45px; 
-            border-radius: 30px; 
-            box-shadow: 0 20px 40px rgba(0,0,0,0.05); 
-            display: grid; 
-            grid-template-columns: 1fr 1.2fr; 
-            gap: 50px; 
-            align-items: center;
-        }
-
-        .product-visual { 
-            background: #f1f2f6; 
-            border-radius: 20px; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 6rem; 
-            height: 380px; 
-            user-select: none;
-        }
-
-        .product-details h1 { 
-            font-size: 2.4rem; 
+        .hero h1 { 
+            font-size: 3rem; 
             margin: 0; 
-            letter-spacing: -1px; 
+            font-weight: 800;
+            letter-spacing: -1px;
+        }
+
+        .dashboard-container {
+            padding: 0 8% 60px;
+            margin-top: -60px;
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        .product-card {
+            background: var(--white);
+            padding: 50px;
+            border-radius: 30px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.05);
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 60px;
+            max-width: 1000px;
+            width: 100%;
+        }
+
+        .product-visual {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 40px;
+            border: 1px solid #eef2f5;
+        }
+
+        .product-emoji {
+            font-size: 6rem;
+            margin-bottom: 20px;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .product-info h2 {
+            font-size: 2.4rem;
             color: var(--accent-navy);
-            line-height: 1.2;
-        }
-
-        .location-tag { 
-            background: #e8f5e9; 
-            color: var(--primary-green); 
-            padding: 6px 15px; 
-            border-radius: 50px; 
-            font-weight: 700; 
-            font-size: 0.8rem; 
-            display: inline-block; 
-            margin: 15px 0 10px; 
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-
-        .price-text {
-            font-size: 1.5rem;
-            margin: 10px 0 20px;
-            color: var(--text-dark);
-        }
-
-        .price-text strong {
-            font-size: 2rem;
-            color: var(--primary-green);
+            margin: 0 0 10px 0;
             font-weight: 800;
         }
 
-        .vouch-box { 
-            padding: 25px 0; 
-            border-top: 1px solid #f1f2f6; 
-            margin-top: 20px;
+        .location-badge {
+            display: inline-block;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 20px;
+            font-size: 1rem;
         }
 
-        .vouch-title { 
-            font-weight: 800; 
-            font-size: 0.75rem; 
-            color: #b2bec3; 
-            text-transform: uppercase; 
-            letter-spacing: 1.2px;
-            margin: 0 0 15px;
+        .price-display {
+            font-size: 3rem;
+            font-weight: 900;
+            color: var(--primary-green);
+            margin-bottom: 30px;
+            border-bottom: 2px dashed #e2e8f0;
+            padding-bottom: 15px;
         }
 
-        .vouch-btn { 
-            padding: 12px 25px; 
-            border: 1px solid #e0e0e0; 
-            border-radius: 12px; 
-            background: white; 
-            cursor: pointer; 
-            font-weight: 700; 
-            margin-right: 12px; 
-            font-size: 0.95rem;
-            transition: all 0.3s ease; 
-            color: var(--text-dark);
-            font-family: inherit;
+        .sdg-box {
+            background-color: #e8f5e9;
+            border-left: 5px solid var(--primary-green);
+            padding: 20px;
+            border-radius: 0 15px 15px 0;
+            margin-bottom: 30px;
         }
 
-        .vouch-btn:hover { 
-            border-color: var(--primary-green); 
-            color: var(--primary-green); 
-            transform: translateY(-2px);
-            background: #fdfefe;
+        .sdg-box h4 {
+            margin: 0 0 5px 0;
+            color: var(--accent-navy);
+            font-size: 1rem;
+            font-weight: 700;
         }
 
-        .reviews-container {
-            border-top: 1px solid #f1f2f6;
-            padding-top: 25px;
-            margin-top: 5px;
-        }
-
-        .review-item { 
-            background: #f8f9fa; 
-            padding: 20px; 
-            border-radius: 15px; 
-            margin-bottom: 15px; 
-            border-left: 5px solid var(--primary-green); 
-        }
-
-        .review-author { 
-            font-weight: 800; 
-            font-size: 0.75rem; 
-            color: #95a5a6; 
-            text-transform: uppercase; 
-            letter-spacing: 1px;
-            display: block;
-            margin-bottom: 5px;
-        }
-
-        .review-item p {
+        .sdg-box p {
             margin: 0;
-            color: var(--text-dark);
-            font-size: 0.95rem;
-        }
-
-        footer { 
-            background: var(--accent-navy); 
-            color: white; 
-            padding: 30px 8%; 
-            display: flex; 
-            justify-content: space-between; 
             font-size: 0.9rem;
-            align-items: center;
+            color: #333;
         }
 
-        @media (max-width: 768px) {
+        .voting-section {
+            display: flex;
+            gap: 15px;
+        }
+
+        .vote-btn {
+            flex: 1;
+            padding: 16px;
+            border: none;
+            border-radius: 12px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .btn-upvote {
+            background-color: #27ae60;
+            color: var(--white);
+        }
+
+        .btn-upvote:hover { background-color: #219653; transform: translateY(-2px); }
+
+        .btn-downvote {
+            background-color: #e67e22;
+            color: var(--white);
+        }
+
+        .btn-downvote:hover { background-color: #d35400; transform: translateY(-2px); }
+
+        .vote-btn:disabled {
+            background-color: #b2bec3;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        footer {
+            background: var(--accent-navy);
+            color: rgba(255,255,255,0.7);
+            padding: 30px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 850px) {
             .product-card { grid-template-columns: 1fr; gap: 30px; padding: 30px; }
-            .product-visual { height: 260px; font-size: 4.5rem; }
+            .hero h1 { font-size: 2.2rem; }
             footer { flex-direction: column; gap: 15px; text-align: center; }
         }
     </style>
 </head>
 <body>
-   
+
     <header>
         <a href="index.html" class="logo">GOOD GRAIL</a>
         <nav class="main-nav">
+            <a href="index.html">Home</a>
             <a href="pricecatalog.html">Price Catalog</a>
             <a href="contactpage.html" class="btn-contact">Contact Us</a>
         </nav>
     </header>
 
     <section class="hero">
-        <a href="pricecatalog.html" class="back-link">← Return to Market Catalog</a>
-        <h1>Product Insight</h1>
+        <h1>Commodity Profile</h1>
     </section>
 
-    <main class="product-container">
+    <main class="dashboard-container">
         <div class="product-card">
-            <div class="product-visual" id="prod-emoji">🌾</div>
-            <div class="product-details">
-                <div class="location-tag" id="prod-location">📍 Mandaluyong</div>
-                <h1 id="prod-name">Premium Rice</h1>
-                <p class="price-text">Current Price: <strong id="prod-price">₱52.50/kg</strong></p>
+            <section class="product-visual">
+                <div class="product-emoji" id="prod-emoji">🔍</div>
+            </section>
 
-                <div class="vouch-box">
-                    <p class="vouch-title">Community Verification</p>
-                    <button class="vouch-btn" id="upvote-btn" onclick="vote(true)">👍 124 Upvotes</button>
-                    <button class="vouch-btn" id="downvote-btn" onclick="vote(false)">👎 3 Downvotes</button>
+            <section class="product-info">
+                <h2 id="prod-name">Loading Profile...</h2>
+                <div class="location-badge" id="prod-location">📍 Syncing variables...</div>
+                <div class="price-display" id="prod-price">₱0.00</div>
+                
+                <div class="sdg-box">
+                    <h4>SDG 12 Consumer Impact Matrix</h4>
+                    <p>Good Grail empowers Filipinos to make ethical purchasing decisions that support honest producers, minimize economic waste, and build a sustainable future for the local economy.</p>
                 </div>
 
-                <div class="reviews-container">
-                    <div class="review-item">
-                        <span class="review-author">JuanD01</span>
-                        <p>Verified! Stocks are plenty as of this morning.</p>
-                    </div>
+                <div class="voting-section">
+                    <button class="vote-btn btn-upvote" id="upvote-btn" onclick="registerVote(true)">
+                        👍 <span id="up-count">0</span> Verified Fair
+                    </button>
+                    <button class="vote-btn btn-downvote" id="downvote-btn" onclick="registerVote(false)">
+                        👎 <span id="down-count">0</span> Overpriced
+                    </button>
                 </div>
-            </div>
+            </section>
         </div>
     </main>
 
     <footer>
         <div>© 2026 GOOD GRAIL | WEB SYSTEMS Project</div>
-        <div style="font-weight: bold; color: white;">Aligned with UN Sustainable Development Goals</div>
+        <div style="font-weight: bold; color: white;">SDG 12: Responsible Consumption</div>
     </footer>
 
     <script>
-        let hasVoted = false;
-        let upvotes = 124;
-        let downvotes = 3;
+        let currentProductId = "";
+        let baseUpvotes = 0;
+        let baseDownvotes = 0;
 
         window.onload = function() {
-            const params = new URLSearchParams(window.location.search);
+            const urlParams = new URLSearchParams(window.location.search);
+            currentProductId = urlParams.get('id') || "generic";
             
-            const name = params.get('name');
-            const price = params.get('price');
-            const city = params.get('city');
-            const img = params.get('img');
-            const urlUpvotes = params.get('upvotes');
-            const urlDownvotes = params.get('downvotes');
+            const name = urlParams.get('name') || "Commodity Item";
+            const price = parseFloat(urlParams.get('price')) || 0;
+            const city = urlParams.get('city') || "Metro Manila";
+            const img = urlParams.get('img') || "🍎";
+            
+            baseUpvotes = parseInt(urlParams.get('upvotes') || "14");
+            baseDownvotes = parseInt(urlParams.get('downvotes') || "2");
 
-            if (name) document.getElementById('prod-name').innerText = name;
-            if (price) {
-                let unit = "kg";
-                if (name.toLowerCase().includes("eggs")) unit = "dozen";
-                if (name.toLowerCase().includes("oil")) unit = "L";
-                document.getElementById('prod-price').innerText = `₱${price}/${unit}`;
-            }
-            if (city) document.getElementById('prod-location').innerText = `📍 SM ${city}`;
-            if (img) document.getElementById('prod-emoji').innerText = img;
-            
-            if (urlUpvotes) {
-                upvotes = parseInt(urlUpvotes);
-                document.getElementById('upvote-btn').innerText = `👍 ${upvotes} Upvotes`;
-            }
-            if (urlDownvotes) {
-                downvotes = parseInt(urlDownvotes);
-                document.getElementById('downvote-btn').innerText = `👎 ${downvotes} Downvotes`;
-            }
+            let unit = "kg";
+            if (name.toLowerCase().includes("eggs")) unit = "dozen";
+            if (name.toLowerCase().includes("oil")) unit = "bottle";
+
+            document.getElementById('prod-name').innerText = name;
+            document.getElementById('prod-price').innerText = `₱${price.toFixed(2)}/${unit}`;
+            document.getElementById('prod-location').innerText = `📍 SM Supermarket, SM ${city}`;
+            document.getElementById('prod-emoji').innerText = img;
+
+            refreshVoteDom();
         };
 
-        function vote(isUpvote) {
-            if (hasVoted) {
-                alert("You have already verified this price.");
-                return;
+        function refreshVoteDom() {
+            const localVotes = JSON.parse(localStorage.getItem('goodgrail_user_votes')) || {};
+            const userVoteStatus = localVotes[currentProductId];
+
+            let displayUp = baseUpvotes;
+            let displayDown = baseDownvotes;
+
+            document.getElementById('upvote-btn').disabled = false;
+            document.getElementById('downvote-btn').disabled = false;
+            document.getElementById('upvote-btn').style.opacity = "1";
+            document.getElementById('downvote-btn').style.opacity = "1";
+            document.getElementById('upvote-btn').style.backgroundColor = "#27ae60";
+            document.getElementById('downvote-btn').style.backgroundColor = "#e67e22";
+
+            if (userVoteStatus === 'up') {
+                displayUp++;
+                document.getElementById('downvote-btn').style.opacity = "0.4";
+                document.getElementById('upvote-btn').style.backgroundColor = "#1e6b3e";
+            } else if (userVoteStatus === 'down') {
+                displayDown++;
+                document.getElementById('upvote-btn').style.opacity = "0.4";
+                document.getElementById('downvote-btn').style.backgroundColor = "#b35d17";
             }
 
-            if (isUpvote) {
-                upvotes++;
-                document.getElementById('upvote-btn').innerText = `👍 ${upvotes} Upvotes`;
-                alert('Upvote registered! Thank you for verifying.');
+            document.getElementById('up-count').innerText = displayUp;
+            document.getElementById('down-count').innerText = displayDown;
+        }
+
+        function registerVote(isUpvote) {
+            let localVotes = JSON.parse(localStorage.getItem('goodgrail_user_votes')) || {};
+            const targetVote = isUpvote ? 'up' : 'down';
+            
+            if (localVotes[currentProductId] === targetVote) {
+                delete localVotes[currentProductId];
             } else {
-                downvotes++;
-                document.getElementById('downvote-btn').innerText = `👎 ${downvotes} Downvotes`;
-                alert('Downvote registered!');
+                localVotes[currentProductId] = targetVote;
             }
-            hasVoted = true;
+
+            localStorage.setItem('goodgrail_user_votes', JSON.stringify(localVotes));
+            refreshVoteDom();
         }
     </script>
 </body>
